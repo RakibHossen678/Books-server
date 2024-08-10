@@ -67,6 +67,17 @@ async function run() {
       res.send(result);
     });
 
+    //find data by category
+    app.get("/categoryBook", async (req, res) => {
+      let query = {};
+      if (req.query?.category) {
+        query = { category: req.query?.category };
+      }
+      console.log(query)
+      const result = await booksCollection.find(query).toArray();
+      res.send(result);
+    });
+
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
